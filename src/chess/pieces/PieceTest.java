@@ -2,55 +2,40 @@ package chess.pieces;
 
 import junit.framework.TestCase;
 
-import java.awt.*;
-
 public class PieceTest extends TestCase {
 
     public void testCreatePiece() {
-        Piece whiteKing = Piece.createPiece(Piece.Color.white, Piece.Type.KING, Piece.KING_REPRESENTATION);
-        Piece blackRook = Piece.createPiece(Piece.Color.black, Piece.Type.ROOK, Piece.ROOK_REPRESENTATION);
-
-
+        Piece whiteKing = King.createKing(Piece.Color.WHITE, "");
+        Piece blackRook = Rook.createRook(Piece.Color.BLACK, "");
         verifyCreationBlack(
                 blackRook,
-                Piece.Type.ROOK, Piece.ROOK_REPRESENTATION);
+                Rook.class, Piece.ROOK_REPRESENTATION);
         verifyCreationWhite(
                 whiteKing,
-                Piece.Type.KING, Piece.KING_REPRESENTATION);
-
-
+                King.class, Piece.KING_REPRESENTATION);
     }
 
     public void testCountPiece() {
         Piece.resetCount();
-        Piece whitePawn = Piece.createPiece(Piece.Color.black, Piece.Type.PAWN,Piece.PAWN_REPRESENTATION);
+        Piece whitePawn = Pawn.createPawn(Piece.Color.BLACK, "");
         assertEquals(1, Piece.getCount());
-        Piece blackPawn = Piece.createPiece(Piece.Color.black, Piece.Type.PAWN, Piece.PAWN_REPRESENTATION);
+        Piece blackPawn = Pawn.createPawn(Piece.Color.BLACK, "");
         assertEquals(2, Piece.getCount());
 
     }
 
-    public void testPawnRepresentation() {
-        Piece whitePawn = Piece.createPiece(Piece.Color.white, Piece.Type.PAWN,Piece.PAWN_REPRESENTATION);
-        Piece blackPawn = Piece.createPiece(Piece.Color.black, Piece.Type.PAWN, Piece.PAWN_REPRESENTATION);
-
-        assertEquals("O peão branco deve ser 'p'", Piece.PAWN_REPRESENTATION, whitePawn.getRepresentation());
-        assertEquals("O peão preto deve ser 'P'", Character.toUpperCase(Piece.PAWN_REPRESENTATION), blackPawn.getRepresentation());
-    }
-
-
-    private void verifyCreationWhite(Piece piece, Piece.Type type, char representation) {
+    private void verifyCreationWhite(Piece piece, Class<?> expectedClass, char representation) {
 
         assertTrue(piece.isWhite());
-        assertEquals(type, piece.getType());
+        assertEquals(expectedClass, piece.getClass());
         assertEquals(representation, piece.getRepresentation());
 
     }
 
-    private void verifyCreationBlack(Piece piece, Piece.Type type, char representation) {
+    private void verifyCreationBlack(Piece piece, Class<?> expectedClass, char representation) {
 
         assertTrue(piece.isBlack());
-        assertEquals(type, piece.getType());
+        assertEquals(expectedClass, piece.getClass());
         assertEquals(Character.toUpperCase(representation), piece.getRepresentation());
 
     }

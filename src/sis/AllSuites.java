@@ -7,6 +7,7 @@ public class AllSuites {
         suite.addTest(sis.report.AllTests.suite());
         suite.addTest(sis.studentinfo.AllTests.suite());
         suite.addTest(sis.util.AllTests.suite());
+        suite.addTest(sis.summer.AllTests.suite());
         return suite;
     }
 }

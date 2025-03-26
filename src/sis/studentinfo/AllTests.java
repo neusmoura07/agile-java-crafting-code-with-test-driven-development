@@ -1,7 +1,7 @@
 package sis.studentinfo;
 
-import junit.framework.TestSuite;
-
+import junit.framework.*;
+import sis.summer.SummerCourseSessionTest;
 
 public class AllTests {
 
@@ -10,6 +10,9 @@ public class AllTests {
         suite.addTestSuite(StudentTest.class);
         suite.addTestSuite(CourseSessionTest.class);
         suite.addTestSuite(DateUtilTest.class);
+        suite.addTestSuite(BasicGradingStrategyTest.class);
+        suite.addTestSuite(HonorsGradingStrategyTest.class);
+        suite.addTestSuite(SummerCourseSessionTest.class);
         return suite;
     }
 }

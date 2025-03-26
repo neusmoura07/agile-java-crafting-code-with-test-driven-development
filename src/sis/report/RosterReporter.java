@@ -28,13 +28,13 @@ public class RosterReporter {
     }
 
     void writeBody(StringBuilder buffer) {
-        for (Student student: session.getallStudents()) {
+        for (Student student: session.getAllStudents()) {
             buffer.append(student.getName());
             buffer.append(NEWLINE);
         }
     }
     void writeFooter(StringBuilder buffer) {
-        buffer.append(ROSTER_REPORT_FOOTER + session.getallStudents().size() + NEWLINE);
+        buffer.append(ROSTER_REPORT_FOOTER + session.getAllStudents().size() + NEWLINE);
     }
 
 
