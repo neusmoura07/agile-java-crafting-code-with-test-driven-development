@@ -10,10 +10,5 @@ public class Bishop extends Piece {
     public static Bishop createBishop(Color color, String position) {
         return new Bishop(color, position);
     }
-    @Override
-    public double getStrength() {
-        return 3.0;
-    }
-
 
 }

@@ -46,8 +46,4 @@ public class Queen extends Piece {
         return "" + fileChar + rankNumber;
     }
 
-    @Override
-    public double getStrength() {
-        return 9.0;
-    }
 }

@@ -9,8 +9,4 @@ public class Knight extends Piece {
         return new Knight(color, position);
     }
 
-    @Override
-    public double getStrength(){
-        return 2.5;
-    }
 }

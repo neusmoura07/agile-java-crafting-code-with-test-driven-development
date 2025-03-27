@@ -9,8 +9,4 @@ public class Rook extends Piece {
         return new Rook(color, position);
     }
 
-    @Override
-    public double getStrength() {
-        return 5.0;
-    }
 }

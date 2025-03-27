@@ -46,8 +46,4 @@ public class King extends Piece {
         return "" + fileChar + rankChar;
     }
 
-    @Override
-    public double getStrength() {
-        return 0.0;
-    }
 }

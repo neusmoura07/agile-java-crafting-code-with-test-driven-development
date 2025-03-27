@@ -1,10 +1,10 @@
 package sis.studentinfo;
 import java.util.*;
 
-abstract public class Session implements Comparable<Session> {
+abstract public class Session implements Comparable<Session>, Iterable<Student> {
     private String department;
     private String number;
-    private List<Student> students = new ArrayList<>();
+    private List<Student> students = new LinkedList<>();
     private Date startDate;
     private int numberOfCredits;
 
@@ -64,5 +64,25 @@ abstract public class Session implements Comparable<Session> {
         int numberOfDays = getSessionLength() * daysInWeek - daysFromFridayToMonday;
         calendar.add(Calendar.DAY_OF_YEAR, numberOfDays);
         return calendar.getTime();
+    }
+
+    double averageGpaForPartTimeStudents() {
+        double total = 0.0;
+        int count = 0;
+        //for (Student student: students) - Forma mais comum
+        // for (Iterator<Student> it = students.iterator(); it.hasNext(); ) - Forma ultrapassada Iterator implementada
+        //for (Enumeration<Student> it = students.elements(); it.hasMoreElements(); )  - Forma ultrapassada Enumeration implementada
+        for (Student student: students) {
+            if (student.isFullTime())
+                continue;
+            count++;
+            total += student.getGpa();
+        }
+        if (count == 0) return 0.0;
+        return total / count;
+    }
+
+    public Iterator<Student> iterator() {
+        return students.iterator();
     }
 }
