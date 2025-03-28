@@ -11,4 +11,8 @@ public class Bishop extends Piece {
         return new Bishop(color, position);
     }
 
+
+
+
+
 }

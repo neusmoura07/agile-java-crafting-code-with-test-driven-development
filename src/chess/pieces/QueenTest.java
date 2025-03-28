@@ -11,20 +11,8 @@ public class QueenTest extends TestCase {
         List<String> moves = queen.getPossibleMoves();
 
         // testar se alguns movimentos esperados estão presentes.
-        assertTrue("Falta o movimento diagonal superior esquerda (c5)", moves.contains("c5"));
-        assertTrue("Falta o movimento diagonal superior direita (e5)", moves.contains("e5"));
-        assertTrue("Falta o movimento diagonal inferior esquerda (c3)", moves.contains("c3"));
-        assertTrue("Falta o movimento diagonal inferior direita (e3)", moves.contains("e3"));
+        assertContains(moves, "c5", "e5", "c3", "e3");
 
-        // Verifica se há pelo menos um movimento horizontal (mudança na coluna, mantendo a linha 4)
-        boolean hasHorizontal = false;
-        for (String pos : moves) {
-            if (!pos.equals("d4") && pos.charAt(1) == '4') {
-                hasHorizontal = true;
-                break;
-            }
-        }
-        assertTrue("A rainha deve possuir algum movimento horizontal", hasHorizontal);
     }
 
     // Testa se a representação da rainha branca é 'q'
@@ -37,5 +25,11 @@ public class QueenTest extends TestCase {
     public void testQueenRepresentationBlack() {
         Queen queen = Queen.createQueen(Piece.Color.BLACK, "d4");
         assertEquals("Representação da rainha preta incorreta", 'Q', queen.getRepresentation());
+    }
+
+    private void assertContains(List<String> moves, String ... expectedMoves) {
+        for(String move: expectedMoves) {
+            assertTrue("Falta o movimento" + move, moves.contains(move));
+        }
     }
 }

@@ -17,4 +17,7 @@ public class BishopTest extends TestCase {
         assertEquals(Bishop.class, bishopBlack.getClass());
         assertEquals(Character.toUpperCase(Piece.BISHOP_REPRESENTATION), bishopBlack.getRepresentation());
     }
+
+
+
 }
