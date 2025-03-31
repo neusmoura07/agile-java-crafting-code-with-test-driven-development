@@ -2,6 +2,7 @@ package sis.studentinfo;
 
 import junit.framework.*;
 
+import java.net.MalformedURLException;
 import java.util.*;
 
 
@@ -99,6 +100,22 @@ abstract public class SessionTest extends TestCase {
         session.enroll(new Student("1"));
         session.enroll(new Student("2"));
         session.enroll(new Student("3"));
+    }
+
+    public void testSessionUrl() throws MalformedURLException {
+        final String url = "http://course.langrsoft.com/cmsc300";
+        session.setUrl(url);
+        assertEquals(url, session.getUrl().toString());
+    }
+
+    public void testInvalidSessionUrl() {
+        final String url = "httsp://course.langrsoft.com/cmsc300"; // Incorreto
+        try {
+            session.setUrl(url);
+            fail("expected exception due to invalid protocol in URL");
+        } catch (MalformedURLException success) {
+
+        }
     }
 
 

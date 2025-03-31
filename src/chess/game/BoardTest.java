@@ -35,17 +35,14 @@ public class BoardTest extends TestCase {
         assertEquals(2, board.countPieces(Piece.Color.WHITE, Bishop.class));
         assertEquals(1, board.countPieces(Piece.Color.BLACK, King.class));
 
-        board.addPawn(King.createKing(Piece.Color.BLACK, ""));
+        board.addPawn(King.createKing(Piece.Color.BLACK, "d5"));
         assertEquals(2, board.countPieces(Piece.Color.BLACK, King.class));
     }
 
     public void testGetPieceAt() {
         Board board = game.getBoard();
-        Piece blackRook = Rook.createRook(Piece.Color.BLACK, "");
-        blackRook.setPosition("a8");
-
-        Piece whiteKing = King.createKing(Piece.Color.WHITE, "");
-        whiteKing.setPosition("e1");
+        Piece blackRook = Rook.createRook(Piece.Color.BLACK, "a8");
+        Piece whiteKing = King.createKing(Piece.Color.WHITE, "e1");
 
         board.addPawn(blackRook);
         board.addPawn(whiteKing);

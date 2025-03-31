@@ -1,14 +1,20 @@
 package chess.game;
 
-import chess.pieces.*;
+import chess.pieces.Piece;
+
 import java.util.*;
+
 
 /**
  * Cria o tabuleiro e adiciona as peças dentro da lista
  */
-public class Board implements ChessBoard{
+public class Board implements ChessBoard, Iterable<Piece> {
 
+    private Piece[][] board;
 
+    public Board() {
+        board = new Piece[8][8];
+    }
     public List<Piece> pieces = new LinkedList<>();
 
     public String printBoard() {
@@ -28,9 +34,11 @@ public class Board implements ChessBoard{
 
     int countPieces(Piece.Color color, Class<?> expectedClass) {
         int  count = 0;
-        for(Piece piece: pieces){
-            if(piece.getColor() == color && piece.getClass() == expectedClass){
-                count++;
+        for(Piece[] row : board){
+            for(Piece p : row) {
+                if (p != null && p.getColor() == color && p.getClass().equals(expectedClass)) {
+                    count++;
+                }
             }
         }
         return count;
@@ -39,26 +47,38 @@ public class Board implements ChessBoard{
     public Piece getPieceAt(String position) {
         int file = position.charAt(0) - 'a'; // Converte 'a'-'h' para 0-7
         int rank = 8 - Character.getNumericValue(position.charAt(1)); // Converte '1'-'8' para 0-7
-        for (Piece piece: pieces) {
-            if(piece.getFile() == file && piece.getRank() == rank){
-                return piece;
-            }
-        }
-        return null;
+        return board[rank][file];
     }
-    //Move peças
+    // Coloca uma peça em uma posição específica e atualiza a posição da peça
     public void put(Piece piece, String position) {
-        pieces.removeIf(p -> p.getPosition().equals(position));
+        int file = position.charAt(0) - 'a';
+        int rank = 8 - Character.getNumericValue(position.charAt(1));
+        board[rank][file] = piece;
         piece.setPosition(position);
-        pieces.add(piece);
     }
 
     public int getPieceCount() {
-        return pieces.size();
+        return getAllPieces().size();
     }
 
     public void addPawn(Piece pawn) {
-        pieces.add(pawn);
+        put(pawn,pawn.getPosition());
+    }
+
+    public List<Piece> getAllPieces() {
+        List<Piece> allPieces = new ArrayList<>();
+        for(Piece[] row : board) {
+            for (Piece p : row) {
+                if(p != null) {
+                    allPieces.add(p);
+                }
+            }
+        }
+        return allPieces;
+    }
+    @Override
+    public Iterator<Piece> iterator() {
+        return getAllPieces().iterator();
     }
 
 }

@@ -15,7 +15,7 @@ public class Game {
     // Calcula a força total das peças de uma determinada cor no tabuleiro
     public double getStrength(Piece.Color color) {
         double strength = 0;
-        for(Piece piece : board.pieces) {
+        for(Piece piece : board.getAllPieces()) {
             if(piece.getColor() == color) {
                 switch (piece.getClass().getSimpleName()) {
                     case "Pawn":
@@ -37,7 +37,7 @@ public class Game {
 
     // Atribui a força (valor ajustado) a cada peça, levando em consideração a regra dos peões
     public void assignPieceStrength() {
-        for (Piece piece : board.pieces) {
+        for (Piece piece : board.getAllPieces()) {
             double strength = 0;
 
             switch (piece.getClass().getSimpleName()) {
@@ -61,7 +61,7 @@ public class Game {
     // Retorna uma lista de peças de uma cor específica, ordenadas da de maior força para a de menor
     public List<Piece> getPiecesSortedByStrength(Piece.Color color) {
         List<Piece> list = new ArrayList<>();
-        for (Piece piece : board.pieces) {
+        for (Piece piece : board.getAllPieces()) {
             if (piece.getColor() == color) {
                 list.add(piece);
             }
@@ -78,7 +78,7 @@ public class Game {
     // Metodo auxiliar para contar o número de peões de uma cor específica em uma determinada coluna (file)
     private int countPawnOnFile(int file, Piece.Color color) {
         int count = 0;
-        for(Piece piece: board.pieces) {
+        for(Piece piece: board.getAllPieces()) {
             // Verifica se a peça é um peão da cor especificada e está na coluna desejada
             if(piece.getColor() == color && piece.getClass() == Pawn.class & piece.getFile() == file) {
                 count++;

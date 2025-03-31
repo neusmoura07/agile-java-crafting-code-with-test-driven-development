@@ -112,6 +112,18 @@ public class StudentTest extends TestCase {
         assertEquals(expectedGpa, student.getGpa(), GRADE_TOLERANCE);
     }
 
+    public void testBadlyFormattedName() {
+        try {
+            new Student("a b c d");
+            fail("expected exception from 4-part name");
+        } catch (StudentNameFormatException expectedExpection) {
+            assertEquals("Student name 'a b c d' contains more than 3 parts", expectedExpection.getMessage());
+        }
+        catch (Exception e) {
+
+        }
+    }
+
 
 
 

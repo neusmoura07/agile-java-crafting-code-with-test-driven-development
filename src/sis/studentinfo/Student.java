@@ -38,9 +38,17 @@ public class Student implements Comparable<Student> {
     };
 
     public Student(String fullName) {
+        final int maximumNumberOfNameParts = 3;
         this.name = fullName;
         credits = 0;
+
         List<String> nameParts = split(fullName);
+
+        if(nameParts.size() > maximumNumberOfNameParts) {
+            String message = "Student name '" + fullName + "' contains more than " + maximumNumberOfNameParts + " parts";
+            throw new StudentNameFormatException(message);
+        }
+
         setName(nameParts);
     }
 
@@ -129,10 +137,7 @@ public class Student implements Comparable<Student> {
     }
 
     private List<String> split(String fullName) {
-        List <String> results = new ArrayList<String>();
-        for (String name: fullName.split(" "))
-            results.add(name);
-        return results;
+        return new ArrayList<>(Arrays.asList(fullName.split(" ")));
     }
 
 
