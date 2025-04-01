@@ -1,6 +1,8 @@
 package sis.studentinfo;
 
-import junit.framework.TestCase;
+import junit.framework.*;
+import java.util.logging.*;
+
 
 public class StudentTest extends TestCase {
     private static final double GRADE_TOLERANCE = 0.05;
@@ -113,19 +115,19 @@ public class StudentTest extends TestCase {
     }
 
     public void testBadlyFormattedName() {
-        try {
-            new Student("a b c d");
-            fail("expected exception from 4-part name");
-        } catch (StudentNameFormatException expectedExpection) {
-            assertEquals("Student name 'a b c d' contains more than 3 parts", expectedExpection.getMessage());
-        }
-        catch (Exception e) {
+        Handler handler = new TestHandler();
+        Student.logger.addHandler(handler);
 
+        final String studentName = "a b c d";
+        try {
+            new Student(studentName);
+            fail("expected exception from 4-part name");
+        }
+        catch (StudentNameFormatException expectedExpection) {
+            String message = String.format(Student.TOO_MANY_NAME_PARTS_MSG, studentName,Student.MAX_NAME_PARTS);
+            assertEquals(message, expectedExpection.getMessage());
+            assertEquals(message, ((TestHandler) handler).getMessage());
         }
     }
-
-
-
-
 
 }

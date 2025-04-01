@@ -1,6 +1,7 @@
 package sis.studentinfo;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 public class Student implements Comparable<Student> {
     private String firstName = "";
@@ -16,6 +17,10 @@ public class Student implements Comparable<Student> {
 
     private ArrayList<Grade> grades = new ArrayList<Grade>();
     private List<Integer> charges = new ArrayList<Integer>();
+
+    static final String TOO_MANY_NAME_PARTS_MSG = "Student name '%s' contains more than %d parts";
+    static final int MAX_NAME_PARTS = 3;
+    final static Logger logger = Logger.getLogger(Student.class.getName());
 
     public int compareTo(Student o) {
         return 0;
@@ -35,17 +40,16 @@ public class Student implements Comparable<Student> {
             return points;
         }
 
-    };
+    }
 
     public Student(String fullName) {
-        final int maximumNumberOfNameParts = 3;
         this.name = fullName;
         credits = 0;
-
         List<String> nameParts = split(fullName);
 
-        if(nameParts.size() > maximumNumberOfNameParts) {
-            String message = "Student name '" + fullName + "' contains more than " + maximumNumberOfNameParts + " parts";
+        if(nameParts.size() > MAX_NAME_PARTS) {
+            String message = String.format(TOO_MANY_NAME_PARTS_MSG, fullName, MAX_NAME_PARTS);
+            Student.logger.info(message);
             throw new StudentNameFormatException(message);
         }
 
@@ -138,6 +142,11 @@ public class Student implements Comparable<Student> {
 
     private List<String> split(String fullName) {
         return new ArrayList<>(Arrays.asList(fullName.split(" ")));
+    }
+
+    private void log(String message) {
+        Logger logger = Logger.getLogger(getClass().getName());
+        logger.info(message);
     }
 
 
