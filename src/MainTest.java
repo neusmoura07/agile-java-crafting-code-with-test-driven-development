@@ -70,7 +70,13 @@ public class MainTest extends TestCase {
 
     public void testRethrows() {
         Main main = new Main();
-        main.rethrows();
+        try {
+            main.rethrows();
+        }
+        catch (RuntimeException expectedException) {
+            Throwable cause = expectedException.getCause();
+            assertEquals(RuntimeException.class, cause.getClass());
+        }
 
     }
 

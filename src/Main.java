@@ -88,7 +88,7 @@ public class Main {
             blowsUp();
         }
         catch (RuntimeException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
 
     }
