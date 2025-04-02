@@ -100,6 +100,7 @@ public class Student implements Comparable<Student> {
 
 
     double getGpa() {
+        Student.logger.fine("begin getGpa" + System.currentTimeMillis());
         if(grades.isEmpty())
             return 0.0;
 
@@ -108,7 +109,10 @@ public class Student implements Comparable<Student> {
         for(Grade grade: grades) {
             total += grandingStrategy.getGradePointsFor(grade);
         }
-        return total / grades.size();
+        double result = total / grades.size();
+
+        Student.logger.fine("end getGpa" + System.currentTimeMillis());
+        return result;
     }
 
     public String getFirstName() {

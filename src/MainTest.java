@@ -56,5 +56,23 @@ public class MainTest extends TestCase {
         assertEquals("Processo de split e recreate falhou", input, result);
     }
 
+    public void testBlowsUp() {
+        Main main = new Main();
+        try {
+            main.blowsUp();
+            fail("Esperava RuntimeException, mas nenhuma exceção foi lançada.");
+        }
+        catch (RuntimeException e) {
+            assertEquals("Somebody should catch this!", e.getMessage());
+        }
+
+    }
+
+    public void testRethrows() {
+        Main main = new Main();
+        main.rethrows();
+
+    }
+
 
 }

@@ -79,6 +79,20 @@ public class Main {
         return sb.toString();
     }
 
+    public void blowsUp() {
+        throw new RuntimeException("Somebody should catch this!");
+    }
+
+    public void rethrows() {
+        try {
+            blowsUp();
+        }
+        catch (RuntimeException e) {
+            throw new RuntimeException();
+        }
+
+    }
+
 
 
 }
