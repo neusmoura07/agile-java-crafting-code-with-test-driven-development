@@ -3,6 +3,11 @@ import junit.framework.TestCase;
 import java.util.*;
 
 public class MainTest extends TestCase {
+    private Main main;
+
+    public void setUp() {
+        main = new Main();
+    }
 
     public void testCalculateFactorialWhile() {
         int result10 = Main.calculateFactorialWhile(10);
@@ -57,7 +62,6 @@ public class MainTest extends TestCase {
     }
 
     public void testBlowsUp() {
-        Main main = new Main();
         try {
             main.blowsUp();
             fail("Esperava RuntimeException, mas nenhuma exceção foi lançada.");
@@ -69,9 +73,11 @@ public class MainTest extends TestCase {
     }
 
     public void testRethrows() {
-        Main main = new Main();
         try {
             main.rethrows();
+        }
+        catch (SimpleException e) {
+
         }
         catch (RuntimeException expectedException) {
             Throwable cause = expectedException.getCause();
@@ -80,5 +86,171 @@ public class MainTest extends TestCase {
 
     }
 
+    public void testExceptionOrder1() {
+        try {
+            main.blowsUp();
+            main.rethrows();
+            fail("no exception");
+        } catch (SimpleException yours) {
+            fail("caught wrong exception");
+        } catch (RuntimeException success) {
+        }
+    }
 
+
+    public void testExceptionOrder2() {
+        try {
+            main.rethrows();
+            main.blowsUp();
+            fail("no exception");
+        } catch (SimpleException success) {
+        } catch (RuntimeException failure) {
+            fail("caught wrong exception");
+        }
+    }
+    /*
+    public void testExceptionOrder3() {
+        try {
+            main.blowsUp();
+            main.rethrows();
+            fail("no exception");
+        } catch (RuntimeException success) {
+        } catch (SimpleException yours) {
+            fail("caught wrong exception");
+        }
+    }
+    */
+
+    /*
+    public void testExceptionOrder4() {
+        try {
+            main.blowsUp();
+            main.rethrows();
+            fail("no exception");
+        } catch (RuntimeException fail) {
+            fail("exception unacceptable");
+        } catch (SimpleException yours) {
+            fail("caught wrong exception");
+        } finally {
+            return;
+        }
+    }
+    */
+
+
+    public void testExceptionOrder5() {
+        try {
+            main.blowsUp();
+            main.rethrows();
+            fail("no exception");
+        } catch (SimpleException yours) {
+            fail("caught wrong exception");
+        } catch (RuntimeException success) {
+        }
+    }
+
+    public void testExceptionOrder6() {
+        try {
+            main.rethrows();
+            main.blowsUp();
+            fail("no exception");
+        } catch (SimpleException yours) {
+            fail("caught wrong exception");
+        } catch (RuntimeException success) {
+        }
+    }
+
+    /*
+    public void testExceptionOrder7() {
+        try {
+            main.rethrows();
+            main.blowsUp();
+            fail("no exception");
+        } catch (SimpleException success) {
+        } catch (RuntimeException fail) {
+            fail("caught wrong exception");
+        }
+    }
+    */
+
+    public void testErrorException1() {
+        try {
+            throw new RuntimeException("fail");
+        } catch (Exception success) {
+
+        }
+    }
+
+    public void testErrorException2() {
+        try {
+            new Dyer();
+        } catch (Exception success) {
+        }
+    }
+
+    /*
+    public void testErrorException3() {
+        try {
+            new Dyer();
+        } catch (Error success) {
+        }
+    }
+     */
+
+    public void testErrorException4() {
+        try {
+            new Dyer();
+        }
+        catch(Throwable success) {
+
+        }
+    }
+
+    /*
+    public void testErrorException5() {
+        try {
+            new Dyer();
+        }
+        catch (Throwable fail) {
+            fail("caught exception in wrong place");
+        }
+        catch (Error success) {
+
+        }
+    }
+     */
+
+    public void testErrorException6() {
+        try {
+            new Dyer();
+        } catch (Error fail) {
+            fail("caught exception in wrong place");
+        } catch (Throwable success) {
+        }
+    }
+
+    public void testErrorException7() {
+        try {
+            new Dyer();
+        }
+        catch (Error fail) {
+            fail("caught exception in wrong place");
+        }
+        catch (Throwable success) {
+        }
+        finally {
+            return;
+        }
+    }
+
+    public void testWithProblems() {
+        try {
+            doSomething();
+            fail("no exception");
+        } catch (Exception success) {}
+    }
+
+    void doSomething() throws Exception {
+        throw new Exception("blah");
+    }
 }
