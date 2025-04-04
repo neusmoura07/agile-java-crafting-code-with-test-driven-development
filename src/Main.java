@@ -1,7 +1,11 @@
-import java.util.Enumeration;
-import java.util.Vector;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main {
+    TestHandler testHandler;
+    Logger logger = Logger.getLogger(Main.class.getName());
+
     public static void main(String[] args) {
         System.out.println("Hello, World!");
     }
@@ -93,8 +97,19 @@ public class Main {
 
     }
 
+    public void logExceptionReversed(Throwable t) {
+        Logger logger = Logger.getLogger(Main.class.getName());
 
+        StringBuilder sb = new StringBuilder();
+        sb.append("Exceção capturada (stack trace em ordem reversa):\n");
+        sb.append(t.toString()).append("\n"); // Adiciona a mensagem da exceção
 
+        StackTraceElement[] trace = t.getStackTrace();
+        for (int i = trace.length - 1; i >= 0; i--) {
+            sb.append(trace[i].toString()).append(System.lineSeparator());
+        }
 
+        logger.log(Level.SEVERE, sb.toString());
+    }
 
 }

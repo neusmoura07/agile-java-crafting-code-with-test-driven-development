@@ -255,14 +255,25 @@ public class MainTest extends TestCase {
             complexOperationWithSideEffects();
         } catch (Exception e) {
             e.printStackTrace();
-            // Ao printar no console os erros com o printStackTrace, não acontece nada em seguida fazendo com que o erro se perca dentro do código. Seria necessário
-            // fazer algo após o print como por exemplo o log, por enquanto fiz uma nova exception apenas para passar no testWithProblems.
             throw new Exception("Nova exceção");
         }
     }
 
     void complexOperationWithSideEffects() throws Exception {
         throw new Exception("Erro durante operação complexa");
+    }
+
+    public void testLogExceptionReversed() {
+
+        main.testHandler = new TestHandler();
+        main.logger.addHandler(main.testHandler); // Adiciona o handler de teste ao logger
+
+        Throwable exception = new RuntimeException("Erro de teste!");
+        main.logExceptionReversed(exception);
+
+        assertNotNull(main.testHandler.getMessage());
+        assertTrue(main.testHandler.getMessage().contains("Erro de teste!"));
+        assertTrue(main.testHandler.getMessage().contains("Exceção capturada (stack trace em ordem reversa)"));
     }
 
 }
