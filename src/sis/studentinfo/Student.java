@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.logging.Logger;
 
 public class Student implements Comparable<Student> {
+    private String id;
     private String firstName = "";
     private String middleName = "";
     private String lastName;
@@ -151,6 +152,14 @@ public class Student implements Comparable<Student> {
     private void log(String message) {
         Logger logger = Logger.getLogger(getClass().getName());
         logger.info(message);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    void setId(String id) {
+        this.id = id;
     }
 
 
