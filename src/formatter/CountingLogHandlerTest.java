@@ -1,5 +1,9 @@
+package formatter;
+
+import com.sun.tools.javac.Main;
 import junit.framework.TestCase;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CountingLogHandlerTest extends TestCase {
@@ -14,9 +18,9 @@ public class CountingLogHandlerTest extends TestCase {
         logger.severe("Mensagem de SEVERE");
         logger.severe("Outra mensagem de SEVERE");
 
-        assertEquals(1,handler.getInfoCount());
-        assertEquals(1,handler.getWarningCount());
-        assertEquals(2,handler.getSevereCount());
+        assertEquals(1,handler.getCount(Level.INFO));
+        assertEquals(1,handler.getCount(Level.WARNING));
+        assertEquals(2,handler.getCount(Level.SEVERE));
     }
 
 }
