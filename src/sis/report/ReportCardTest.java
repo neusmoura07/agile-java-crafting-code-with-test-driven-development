@@ -3,8 +3,13 @@ import junit.framework.*;
 import sis.studentinfo.*;
 
 public class ReportCardTest extends TestCase {
+    private ReportCard card;
+
+    protected void setUp() {
+        card = new ReportCard();
+    }
+
     public void testMessage() {
-        ReportCard card = new ReportCard();
         assertEquals(ReportCard.A_MESSAGE, card.getMessage(Student.Grade.A));
         assertEquals(ReportCard.B_MESSAGE, card.getMessage(Student.Grade.B));
         assertEquals(ReportCard.C_MESSAGE, card.getMessage(Student.Grade.C));

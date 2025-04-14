@@ -3,12 +3,11 @@ import java.util.*;
 import sis.studentinfo.*;
 
 public class ReportCard {
-    static final String A_MESSAGE = "Excellent";
-    static final String B_MESSAGE = "Very good";
+    static final String A_MESSAGE = "Excelente";
+    static final String B_MESSAGE = "Muito bom";
     static final String C_MESSAGE = "Hmmm...";
-    static final String D_MESSAGE = "You're not trying";
-    static final String F_MESSAGE = "Loser";
-
+    static final String D_MESSAGE = "Você não está tentando";
+    static final String F_MESSAGE = "Perdedor";
     private Map<Student.Grade, String> messages = null;
 
     public String getMessage(Student.Grade grade) {
@@ -29,4 +28,6 @@ public class ReportCard {
         messages.put(Student.Grade.D, D_MESSAGE);
         messages.put(Student.Grade.F, F_MESSAGE);
     }
+
+
 }

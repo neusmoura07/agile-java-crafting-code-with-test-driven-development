@@ -7,7 +7,7 @@ import static sis.report.RosterReporter.NEWLINE;
 public class RosterReporterTest extends TestCase {
 
     public void testRostReport(){
-        CourseSession session = CourseSession.create("ENGL", "101",DateUtil.createDate(2003, 1, 6));
+        CourseSession session = CourseSession.create(new Course("ENGL", "101"),DateUtil.createDate(2003, 1, 6));
         session.enroll(new Student("A"));
         session.enroll(new Student("B"));
 

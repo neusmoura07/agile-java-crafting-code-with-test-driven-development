@@ -3,15 +3,13 @@ import java.util.*;
 import java.net.*;
 
 abstract public class Session implements Comparable<Session>, Iterable<Student> {
-    private String department;
-    private String number;
+    private Course course;
     private List<Student> students = new LinkedList<>();
     private Date startDate;
     private int numberOfCredits;
 
-    protected Session(String department, String number, Date startDate) {
-        this.department = department;
-        this.number = number;
+    protected Session(Course course, Date startDate) {
+        this.course = course;
         this.startDate = startDate;
     }
 
@@ -27,11 +25,11 @@ abstract public class Session implements Comparable<Session>, Iterable<Student> 
     }
 
     public String getDepartment() {
-        return department;
+        return course.getDepartment();
     }
 
     public String getNumber() {
-        return number;
+        return course.getNumber();
     }
 
     int getNumberOfStudents() {

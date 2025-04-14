@@ -9,17 +9,18 @@ import java.util.*;
 public class CourseSession extends Session {
     private static int count;
 
-    public static CourseSession create(String department, String number, Date startDate) {
-        return new CourseSession(department, number, startDate);
+    public static CourseSession create(Course course, Date startDate) {
+        incrementCount();
+        return new CourseSession(course, startDate);
 
     }
     /**
      *Constrói uma CourseSession iniciando em uma data especifica
      * @param startDate
      */
-    protected CourseSession(String department, String number, Date startDate) {
-        super(department, number,startDate);
-        incrementCount();
+    protected CourseSession(Course course, Date startDate) {
+        super(course ,startDate);
+
 
     }
 
