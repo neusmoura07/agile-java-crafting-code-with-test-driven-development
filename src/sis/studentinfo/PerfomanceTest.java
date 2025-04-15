@@ -60,4 +60,9 @@ public class PerfomanceTest extends TestCase {
         assertTrue(Arrays.equals(a,b));
     }
 
+    public void testAverageForNoScores() {
+        Perfomance perfomance = new Perfomance();
+        assertTrue(Double.isNaN(perfomance.average()));
+    }
+
 }
