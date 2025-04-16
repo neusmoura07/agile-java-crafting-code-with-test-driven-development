@@ -13,6 +13,12 @@ public class AllTests {
         suite.addTestSuite(BasicGradingStrategyTest.class);
         suite.addTestSuite(HonorsGradingStrategyTest.class);
         suite.addTestSuite(SummerCourseSessionTest.class);
+        suite.addTestSuite(AccountTest.class);
+        suite.addTestSuite(CourseTest.class);
+        suite.addTestSuite(PasswordGeneratorTest.class);
+        suite.addTestSuite(PerfomanceTest.class);
+        suite.addTestSuite(ScorerTest.class);
+        suite.addTestSuite(StudentTest.class);
         return suite;
     }
 }

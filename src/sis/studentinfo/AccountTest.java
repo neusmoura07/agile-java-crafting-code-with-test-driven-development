@@ -18,4 +18,27 @@ public class AccountTest extends TestCase {
         account.credit(new BigDecimal("2.99"));
         assertEquals(new BigDecimal("4.70"), account.transactionAverage());
     }
+
+    public void testFlags() {
+        Student student = new Student("a");
+        student.set(
+                Student.Flag.ON_CAMPUS,
+                Student.Flag.TAX_EXEMPT,
+                Student.Flag.MINOR
+        );
+
+        assertTrue(student.isOn(Student.Flag.ON_CAMPUS));
+        assertTrue(student.isOn(Student.Flag.TAX_EXEMPT));
+        assertTrue(student.isOn(Student.Flag.MINOR));
+
+        assertFalse(student.isOff(Student.Flag.ON_CAMPUS));
+        assertTrue(student.isOff(Student.Flag.TROUBLEMAKER));
+
+        student.unset(Student.Flag.ON_CAMPUS);
+
+        assertTrue(student.isOff(Student.Flag.ON_CAMPUS));
+        assertTrue(student.isOn(Student.Flag.TAX_EXEMPT));
+        assertTrue(student.isOn(Student.Flag.MINOR));
+    }
+
 }

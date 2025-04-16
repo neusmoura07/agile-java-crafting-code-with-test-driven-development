@@ -162,6 +162,40 @@ public class Student implements Comparable<Student> {
         this.id = id;
     }
 
+    public enum Flag {
+        ON_CAMPUS(1),
+        TAX_EXEMPT(2),
+        MINOR(4),
+        TROUBLEMAKER(8);
+
+        private int mask;
+
+        Flag(int mask) {
+            this.mask = mask;
+        }
+
+    }
+
+    private int settings = 0x0;
+
+    public void set(Flag... flags) {
+        for (Flag flag : flags)
+            settings |= flag.mask; // OR para ativar
+    }
+
+    public void unset(Flag... flags) {
+        for (Flag flag : flags)
+            settings &= ~flag.mask; //AND com negação para desativar
+    }
+
+    public boolean isOn(Flag flag) {
+        return (settings & flag.mask) == flag.mask;
+    }
+
+    public boolean isOff(Flag flag) {
+        return !isOn(flag);
+    }
+
 
 
 
