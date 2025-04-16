@@ -1,8 +1,8 @@
+package Lesson10;
 
 import junit.framework.*;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.math.*;
 import java.util.*;
 
 import static org.junit.Assert.assertNotEquals;
@@ -83,15 +83,89 @@ public class MathTest extends TestCase {
     // Para consertar esse erro as duas formas seria ou colocando o f no final do literal (0.01f) ou colocando um cast explicito para float
     // (float x = (float) 0.01;)
 
+    //Exercise Lesson 10. Mathematics Topic 5
 
+    public void testTopicFive() {
+        int hexValue = 0xDEAD;
+        //Printando no console o hexadecimal é 57005
+        // System.out.println(hexValue);
+        assertEquals(57005, hexValue);
 
+        String octalString = Integer.toOctalString(hexValue);
+        //Printando no console o octagonal é 157255
+        //System.out.println(octalString);
+        assertEquals("157255",octalString);
 
+    }
 
+    //Exercise Lesson 10. Mathematics Topic 6
+    public void testDivisionByZero() {
+        double posZero = 1.0 / 0.0;
+        assertTrue(Double.isInfinite(posZero));
+        assertEquals(Double.POSITIVE_INFINITY, posZero);
 
+        double negZero = -1.0 / 0.0;
+        assertTrue(Double.isInfinite(negZero));
+        assertEquals(Double.NEGATIVE_INFINITY, negZero);
+    }
 
+    public void testZeroDividedByZero() {
+        double nanResult = 0.0 / 0.0;
+        assertTrue(Double.isNaN(nanResult));
+    }
 
+    public void testInfinityArithmetic() {
+        //Soma de infinito com número finito
+        assertEquals(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY + 123.45);
 
+        //Infinito menos infinito deve resultar em NaN
+        assertTrue(Double.isNaN(Double.POSITIVE_INFINITY - Double.POSITIVE_INFINITY));
 
+        //Infinito vezes um número positivo é infinito positivo
+        assertEquals(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY * 2.0);
+    }
 
+    public void testNaNProperties() {
+        //Qualquer comparação com NaN sempre resulta em false
+        double nan = Double.NaN;
+        assertFalse(nan > 0);
+        assertFalse(nan < 0);
+        assertFalse(nan == nan);
+    }
+
+    //Exercise Lesson 10. Mathematics Topic 7
+    public void testNaNComparisonPrimitiveS() {
+        //Para tipos primitivos, NaN não é igual a NaN utilizando ==
+        float a = Float.NaN;
+        float b = Float.NaN;
+        assertFalse(a == b);
+    }
+
+    public void testNaNComparisonWrappers() {
+        //Para wrappers, o metodo equals trata Nan como igual a NaN
+        Float a = Float.NaN;
+        Float b = Float.NaN;
+        assertTrue(a.equals(b));
+    }
+
+    public void testAutoboxingDifference() {
+        Float a = 3.14f;
+        Float b = 3.14f;
+
+        assertTrue(a.equals(b));
+    }
+
+    public void testFilterUsingModulo() {
+        List<Integer> expected = Arrays.asList(3, 6, 9);
+        List<Integer> result = DivisibleByThree.filterUsingModulo(1,2,3,4,5,6,7,8,9,10);
+        assertEquals(expected, result);
+
+    }
+
+    public void testFilterUsingDivision() {
+        List<Integer> expected = Arrays.asList(3,6,9);
+        List<Integer> result = DivisibleByThree.filterUsingDivision(1,2,3,4,5,6,7,8,9);
+        assertEquals(expected,result);
+    }
 
 }
