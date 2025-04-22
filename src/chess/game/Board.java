@@ -18,18 +18,17 @@ public class Board implements ChessBoard, Iterable<Piece> {
     public List<Piece> pieces = new LinkedList<>();
 
     public String printBoard() {
-        StringBuilder board = new StringBuilder();
-
-        board.append("RNBQKBNR\n");
-        board.append("PPPPPPPP\n");
-        board.append("........\n");
-        board.append("........\n");
-        board.append("........\n");
-        board.append("........\n");
-        board.append("pppppppp\n");
-        board.append("rnbqkbnr\n");
-
-        return board.toString();
+        StringBuilder sb = new StringBuilder();
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                Piece p = board[row][col];
+                sb.append(p == null
+                        ? '.'
+                        : p.getRepresentation());
+            }
+            sb.append('\n');
+        }
+        return sb.toString();
     }
 
     int countPieces(Piece.Color color, Class<?> expectedClass) {
@@ -45,8 +44,8 @@ public class Board implements ChessBoard, Iterable<Piece> {
     }
     //Obtém peças por posição
     public Piece getPieceAt(String position) {
-        int file = position.charAt(0) - 'a'; // Converte 'a'-'h' para 0-7
-        int rank = 8 - Character.getNumericValue(position.charAt(1)); // Converte '1'-'8' para 0-7
+        int file = position.charAt(0) - 'a';        // 'a'→0, 'b'→1, … 'h'→7
+        int rank =     '8'  - position.charAt(1);  // '8'→0, '7'→1, … '1'→7
         return board[rank][file];
     }
     // Coloca uma peça em uma posição específica e atualiza a posição da peça

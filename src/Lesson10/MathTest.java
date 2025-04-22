@@ -168,4 +168,16 @@ public class MathTest extends TestCase {
         assertEquals(expected,result);
     }
 
+    public void testcreate() {
+        for(int i = 0; i < 10_000; i++) {
+            int r = random1to50();
+            assertTrue(r >= 1 && r <= 50);
+        }
+
+    }
+
+    public static int random1to50() {
+        return (int)(Math.random() * 50) + 1;
+    }
+
 }
