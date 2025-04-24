@@ -2,9 +2,8 @@ package sis.report;
 
 import java.util.*;
 import sis.studentinfo.*;
-import static sis.report.RosterReporter.NEWLINE;
-
 import java.util.ArrayList;
+
 
 public class CourseReport {
     private List<CourseSession> sessions = new LinkedList<CourseSession>();
@@ -18,7 +17,7 @@ public class CourseReport {
         StringBuilder builder = new StringBuilder();
         for(CourseSession session: sessions)
             builder.append(
-                    session.getDepartment() + " " + session.getNumber() + NEWLINE);
+                    session.getDepartment() + " " + session.getNumber());
         return builder.toString();
     }
 }
