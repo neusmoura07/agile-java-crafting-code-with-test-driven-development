@@ -46,4 +46,8 @@ public class StudentUI {
         writer.newLine();
         writer.flush();
     }
+
+    public static final void main(String[] args) throws IOException {
+        new StudentUI().run();
+    }
 }

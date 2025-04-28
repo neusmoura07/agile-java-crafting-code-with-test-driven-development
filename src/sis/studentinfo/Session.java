@@ -1,12 +1,15 @@
 package sis.studentinfo;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.*;
 import java.net.*;
 
-abstract public class Session implements Comparable<Session>, Iterable<Student> {
+abstract public class Session implements Comparable<Session>, Iterable<Student>, java.io.Serializable {
     private Course course;
-    private List<Student> students = new LinkedList<>();
+    private transient List<Student> students = new ArrayList<Student>();
     private Date startDate;
     private int numberOfCredits;
+    private String name;
 
     protected Session(Course course, Date startDate) {
         this.course = course;
@@ -105,5 +108,16 @@ abstract public class Session implements Comparable<Session>, Iterable<Student> 
         e.printStackTrace();
     }
 
+    public int getNumberOfCredits() {
+        return numberOfCredits;
+    }
+
+    private void readObject(ObjectInputStream in)
+            throws IOException, ClassNotFoundException {
+        // 1) desserializa todos os campos não-transient
+        in.defaultReadObject();
+        // 2) re­inicializa a lista de estudantes
+        this.students = new LinkedList<>();
+    }
 
 }
