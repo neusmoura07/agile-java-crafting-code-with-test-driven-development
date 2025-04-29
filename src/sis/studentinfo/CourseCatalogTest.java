@@ -1,10 +1,7 @@
 package sis.studentinfo;
 
 import junit.framework.TestCase;
-
-import java.io.DataOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 public class CourseCatalogTest extends TestCase {

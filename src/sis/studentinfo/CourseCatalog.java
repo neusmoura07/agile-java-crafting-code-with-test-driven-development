@@ -21,7 +21,8 @@ public class CourseCatalog {
     public void store(String filename) throws IOException {
         ObjectOutputStream output = null;
         try {
-            output = new ObjectOutputStream(new FileOutputStream(filename));
+            output =
+                    new ObjectOutputStream(new FileOutputStream(filename));
             output.writeObject(sessions);
         }
         finally {
@@ -29,7 +30,8 @@ public class CourseCatalog {
         }
     }
 
-    public void load(String filename) throws IOException, ClassNotFoundException {
+    public void load(String filename)
+            throws IOException, ClassNotFoundException {
         ObjectInputStream input = null;
         try {
             input = new ObjectInputStream(new FileInputStream(filename));

@@ -1,6 +1,7 @@
 package sis.studentinfo;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.*;
 import java.net.*;
 
@@ -9,7 +10,6 @@ abstract public class Session implements Comparable<Session>, Iterable<Student>,
     private transient List<Student> students = new ArrayList<Student>();
     private Date startDate;
     private int numberOfCredits;
-    private String name;
 
     protected Session(Course course, Date startDate) {
         this.course = course;
@@ -112,12 +112,32 @@ abstract public class Session implements Comparable<Session>, Iterable<Student>,
         return numberOfCredits;
     }
 
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        // 1) Serializa todos os campos não-transient normalmente
+        out.defaultWriteObject();
+        // 2) Agora grava manualmente a lista de alunos
+        out.writeInt(students.size());
+        for (Student s : students) {
+            out.writeUTF(s.getName());
+            out.writeInt(s.getCredits());
+        }
+    }
+
     private void readObject(ObjectInputStream in)
             throws IOException, ClassNotFoundException {
-        // 1) desserializa todos os campos não-transient
+        // 1) Desserializa todos os campos não-transient
         in.defaultReadObject();
-        // 2) re­inicializa a lista de estudantes
+        // 2) Recria a lista de alunos a partir dos dados que gravamos
         this.students = new LinkedList<>();
+        int count = in.readInt();
+        for (int i = 0; i < count; i++) {
+            String name = in.readUTF();
+            int creds = in.readInt();
+            Student st = new Student(name);
+            st.addCredits(creds);
+            this.enroll(st);
+        }
     }
+
 
 }
