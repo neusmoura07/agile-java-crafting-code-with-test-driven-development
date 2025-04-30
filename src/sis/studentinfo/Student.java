@@ -196,6 +196,10 @@ public class Student implements Comparable<Student> {
         return !isOn(flag);
     }
 
+    public static Student findByLastName(String lastName) {
+        return new Student(lastName);
+    }
+
 
 
 

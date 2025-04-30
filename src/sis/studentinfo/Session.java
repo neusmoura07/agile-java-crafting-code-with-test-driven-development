@@ -6,6 +6,8 @@ import java.util.*;
 import java.net.*;
 
 abstract public class Session implements Comparable<Session>, Iterable<Student>, java.io.Serializable {
+    public static final long serialVersionUID = 1L;
+    private String name;
     private Course course;
     private transient List<Student> students = new ArrayList<Student>();
     private Date startDate;
@@ -113,29 +115,21 @@ abstract public class Session implements Comparable<Session>, Iterable<Student>,
     }
 
     private void writeObject(ObjectOutputStream out) throws IOException {
-        // 1) Serializa todos os campos não-transient normalmente
         out.defaultWriteObject();
-        // 2) Agora grava manualmente a lista de alunos
         out.writeInt(students.size());
         for (Student s : students) {
-            out.writeUTF(s.getName());
-            out.writeInt(s.getCredits());
+            out.writeObject(s.getLastName());
         }
     }
 
     private void readObject(ObjectInputStream in)
             throws IOException, ClassNotFoundException {
-        // 1) Desserializa todos os campos não-transient
         in.defaultReadObject();
-        // 2) Recria a lista de alunos a partir dos dados que gravamos
-        this.students = new LinkedList<>();
-        int count = in.readInt();
-        for (int i = 0; i < count; i++) {
-            String name = in.readUTF();
-            int creds = in.readInt();
-            Student st = new Student(name);
-            st.addCredits(creds);
-            this.enroll(st);
+        students = new ArrayList<Student>();
+        int size = in.readInt();
+        for (int i = 0; i < size; i++) {
+            String lastName = (String) in.readObject();
+            students.add(Student.findByLastName(lastName));
         }
     }
 

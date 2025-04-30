@@ -3,6 +3,7 @@ package sis.report;
 import java.util.*;
 import sis.studentinfo.*;
 import java.util.ArrayList;
+import static sis.report.ReportConstant.NEWLINE;
 
 
 public class CourseReport {
@@ -17,7 +18,7 @@ public class CourseReport {
         StringBuilder builder = new StringBuilder();
         for(CourseSession session: sessions)
             builder.append(
-                    session.getDepartment() + " " + session.getNumber());
+                    session.getDepartment() + " " + session.getNumber() + NEWLINE);
         return builder.toString();
     }
 }
