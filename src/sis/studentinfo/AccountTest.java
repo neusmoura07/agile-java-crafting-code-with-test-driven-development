@@ -1,9 +1,22 @@
 package sis.studentinfo;
 
 import java.math.BigDecimal;
+import java.util.Date;
+
+import com.jimbob.ach.*;
 import junit.framework.*;
 
 public class AccountTest extends TestCase {
+    static final String ABA = "102000012";
+    static final String ACCOUNT_NUMBER = "194431518811";
+
+    private Account account;
+    protected void setUp() {
+        account = new Account();
+        account.setBankAba(ABA);
+        account.setBankAccountNumber(ACCOUNT_NUMBER);
+        account.setBankAccountType(Account.BankAccountType.CHECKING);
+    }
     public void testtransactions() {
         Account account = new Account();
         account.credit(new BigDecimal("0.10"));
@@ -41,4 +54,33 @@ public class AccountTest extends TestCase {
         assertTrue(student.isOn(Student.Flag.MINOR));
     }
 
+    public void testTransferFromBank() {
+        account.setAch(createMockAch(AchStatus.SUCCESS));
+        final BigDecimal amount = new BigDecimal("50.00");
+        account.transferFromBank(amount);
+        assertEquals(amount, account.getBalance());
+    }
+
+
+    public void testFailedTransferFromBank() {
+        account.setAch(createMockAch(AchStatus.FAILURE));
+        final BigDecimal amount = new BigDecimal("50.00");
+        account.transferFromBank(amount);
+        assertEquals(new BigDecimal("0.00"), account.getBalance());
+    }
+
+    private Ach createMockAch(AchStatus status) {
+        return new MockAch() {
+            public AchResponse issueDebit(
+                    AchCredentials credentials, AchTransactionData data) {
+                Assert.assertTrue(data.account.equals(AccountTest.ACCOUNT_NUMBER));
+                Assert.assertTrue(data.aba.equals(AccountTest.ABA));
+                AchResponse response = new AchResponse();
+                response.timestamp = new Date();
+                response.traceCode = "1";
+                response.status = status;
+                return response;
+            }
+        };
+    }
 }

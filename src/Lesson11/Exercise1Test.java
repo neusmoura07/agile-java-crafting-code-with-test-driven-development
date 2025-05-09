@@ -1,8 +1,7 @@
 package Lesson11;
 
 import junit.framework.TestCase;
-import org.junit.Rule;
-import org.junit.rules.TemporaryFolder;
+
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;

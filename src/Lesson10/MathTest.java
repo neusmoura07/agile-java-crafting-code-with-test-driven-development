@@ -5,9 +5,6 @@ import junit.framework.*;
 import java.math.*;
 import java.util.*;
 
-import static org.junit.Assert.assertNotEquals;
-
-
 public class MathTest extends TestCase {
     static final double TOLERANCE = 0.05;
 
@@ -48,7 +45,7 @@ public class MathTest extends TestCase {
         BigDecimal bigDecimalTen = new BigDecimal("10.00");
         BigDecimal bigDecimalOne = new BigDecimal("1");
 
-        assertNotEquals("10.00 e 1 não devem ser iguais", bigDecimalTen, bigDecimalOne);
+        assertTrue(!bigDecimalTen.equals(bigDecimalOne));
 
         BigDecimal transformed = bigDecimalOne.multiply(new BigDecimal("10")).setScale(2, RoundingMode.HALF_UP);
         assertEquals("Depois de multiplicar, deve ser igual a 10.00", bigDecimalTen, transformed);
