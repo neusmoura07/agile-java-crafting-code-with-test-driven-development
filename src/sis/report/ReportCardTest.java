@@ -20,8 +20,7 @@ public class ReportCardTest extends TestCase {
         assertEquals(ReportCard.F_MESSAGE, card.getMessage(Student.Grade.F));
     }
     public void testKeys() {
-        Set<Student.Grade> expectedGrades = new HashSet<Student.Grade>();
-        EnumSet.allOf(Student.Grade.class);
+        Set<Student.Grade> expectedGrades = EnumSet.allOf(Student.Grade.class);
         Set<Student.Grade> grades = EnumSet.noneOf(Student.Grade.class);
         for (Student.Grade grade: card.getMessages().keySet())
             grades.add(grade);

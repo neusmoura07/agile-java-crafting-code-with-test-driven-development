@@ -1,9 +1,10 @@
 package sis.studentinfo;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.logging.Logger;
 
-public class Student implements Comparable<Student> {
+public class Student implements Comparable<Student>, Serializable {
     private String id;
     private String firstName = "";
     private String middleName = "";

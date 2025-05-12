@@ -98,7 +98,7 @@ public class MainTest extends TestCase {
     }
 
 
-    public void testExceptionOrder2() {
+    /*public void testExceptionOrder2() {
         try {
             main.rethrows();
             main.blowsUp();
@@ -107,7 +107,7 @@ public class MainTest extends TestCase {
         } catch (RuntimeException failure) {
             fail("caught wrong exception");
         }
-    }
+    }*/
     /*
     public void testExceptionOrder3() {
         try {

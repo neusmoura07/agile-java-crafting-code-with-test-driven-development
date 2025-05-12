@@ -7,7 +7,7 @@ import com.jimbob.ach.*;
 import junit.framework.Assert;
 
 
-public class Account {
+public class Account implements Accountable{
     private BigDecimal balance = new BigDecimal("0.00");
     private int transactionCount = 0;
     private String bankAba;

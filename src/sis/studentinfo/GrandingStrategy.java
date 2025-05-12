@@ -1,5 +1,7 @@
 package sis.studentinfo;
 
-public interface GrandingStrategy {
+import java.io.Serializable;
+
+public interface GrandingStrategy extends Serializable {
     int getGradePointsFor(Student.Grade grade);
 }

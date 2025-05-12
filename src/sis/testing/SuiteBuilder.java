@@ -1,11 +1,9 @@
 package sis.testing;
 
+import java.lang.reflect.Modifier;
 import java.util.*;
-
-
 import junit.framework.*;
-import junit.runner.ClassPathTestCollector;
-import junit.runner.TestCollector;
+import junit.runner.*;
 
 
 public class SuiteBuilder {
@@ -17,7 +15,7 @@ public class SuiteBuilder {
                     return false;
                 String className = classNameFromFile(classFileName);
                 Class klass = createClass(className);
-                return TestCase.class.isAssignableFrom(klass);
+                return TestCase.class.isAssignableFrom(klass) && isConcrete(klass);
             }
         };
         return Collections.list(collector.collectTests());
@@ -30,5 +28,29 @@ public class SuiteBuilder {
             return null;
         }
     }
+
+    public TestSuite suite() {
+        TestSuite suite = new TestSuite();
+        for (String className : gatherTestClassNames()) {
+            try {
+                @SuppressWarnings("unchecked")
+                Class<? extends TestCase> tc =
+                        (Class<? extends TestCase>) Class.forName(className);
+                suite.addTestSuite(tc);
+            } catch (ClassNotFoundException e) {
+                // ignorar ou logar
+            }
+        }
+        return suite;
+    }
+
+    private boolean isConcrete(Class klass) {
+        if(klass.isInterface())
+            return false;
+        int modifiers = klass.getModifiers();
+        return !Modifier.isAbstract(modifiers);
+    }
+
+
 
 }
