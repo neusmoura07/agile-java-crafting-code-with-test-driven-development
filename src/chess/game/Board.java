@@ -80,4 +80,6 @@ public class Board implements ChessBoard, Iterable<Piece> {
         return getAllPieces().iterator();
     }
 
+
+
 }

@@ -87,6 +87,32 @@ public class Game {
         return count;
     }
 
+    public List<String> getSortedPositions() {
+        List<String> positions = new ArrayList<>();
+        for (Piece p : board.getAllPieces()) {
+            positions.add(p.getPosition());
+        }
+
+        // aqui vem a classe interna anônima que implementa Comparator<String>
+        Collections.sort(positions, new Comparator<String>() {
+            @Override
+            public int compare(String pos1, String pos2) {
+                // compara coluna
+                char file1 = pos1.charAt(0);
+                char file2 = pos2.charAt(0);
+                if (file1 != file2) {
+                    return Character.compare(file1, file2);
+                }
+                // mesma coluna? compara fileira decrescentemente
+                char rank1 = pos1.charAt(1);
+                char rank2 = pos2.charAt(1);
+                return Character.compare(rank2, rank1);
+            }
+        });
+
+        return positions;
+    }
+
     public Board getBoard() {
         return board;
     }
@@ -129,6 +155,8 @@ public class Game {
         board.put(Knight.createKnight(Piece.Color.WHITE,"g1"), "g1");
         board.put(Rook.createRook(Piece.Color.WHITE,"h1"), "h1");
     }
+
+
 
 
 }
