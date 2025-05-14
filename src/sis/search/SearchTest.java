@@ -1,12 +1,31 @@
 package sis.search;
 
 import junit.framework.TestCase;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
+import java.util.*;
+import sis.util.*;
 
 public class SearchTest extends TestCase {
-    private static final String URL = "http://www.langrsoft.com";
+    public static final String[] TEST_HTML = {
+            "<html>",
+            "<body>",
+            "Book: Agile Java, by Jeff Langr<br />",
+            "Synopsis: Mr Langr teaches you<br />",
+            "Java via test-driven development.<br />",
+            "</body></html>"
+    };
+
+    public static final String FILE = "/temp/testFileSearch.html";
+    public static final String URL = "file:" + FILE;
+
+    protected void setUp() throws  IOException {
+        TestUtil.delete(FILE);
+        LineWriter.write(FILE, TEST_HTML);
+    }
+
+    protected  void tearDown() throws IOException {
+        TestUtil.delete(FILE);
+    }
 
     public void testCreate() throws IOException {
         Search search = new Search(URL, "x");

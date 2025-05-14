@@ -45,8 +45,7 @@ public class Search {
     }
 
     private void searchUrl() throws IOException {
-        URLConnection connection = url.openConnection();
-        InputStream input = connection.getInputStream();
+        InputStream input = getInputStream(url);
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(new InputStreamReader(input));
@@ -58,5 +57,16 @@ public class Search {
             if (reader != null)
                 reader.close();
         }
+    }
+
+    private InputStream getInputStream(URL url) throws IOException {
+        if (url.getProtocol().startsWith("http")) {
+            URLConnection connection = url.openConnection();
+            return connection.getInputStream();
+        }
+        else if (url.getProtocol().equals("file")) {
+            return new FileInputStream(url.getPath());
+        }
+        return null;
     }
 }
