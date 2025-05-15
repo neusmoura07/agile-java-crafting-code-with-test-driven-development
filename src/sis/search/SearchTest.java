@@ -15,7 +15,7 @@ public class SearchTest extends TestCase {
             "</body></html>"
     };
 
-    public static final String FILE = "/temp/testFileSearch.html";
+    public static final String FILE = System.getProperty("java.io.tmpdir") + "/testFileSearch.html";
     public static final String URL = "file:" + FILE;
 
     protected void setUp() throws  IOException {
