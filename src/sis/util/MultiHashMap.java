@@ -55,4 +55,10 @@ public class MultiHashMap<K, V> {
         }
     }
 
+    public Set<K> keys() {
+        return map.keySet();
+    }
+
+
+
 }
