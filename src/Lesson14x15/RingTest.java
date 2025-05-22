@@ -1,4 +1,4 @@
-package Lesson14;
+package Lesson14x15;
 
 import junit.framework.TestCase;
 import java.util.NoSuchElementException;
@@ -83,6 +83,16 @@ public class RingTest extends TestCase {
             fail("Expected NoSuchElementException");
         } catch (NoSuchElementException e) {
             // expected
+        }
+    }
+
+    public void testAddNullThrowsAssertionError() {
+        Ring<String> ring = new Ring<>();
+        try {
+            ring.add(null);
+            fail("Esperado AssertionError por elemento nulo");
+        } catch (AssertionError e) {
+
         }
     }
 }

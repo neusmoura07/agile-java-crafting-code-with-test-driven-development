@@ -1,4 +1,4 @@
-package Lesson14;
+package Lesson14x15;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -66,6 +66,7 @@ public class Ring<T> implements Iterable<T> {
      * Adiciona elemento após o último elemento (mantendo ordem de inserção) e mantém o current no primeiro inserido.
      */
     public void add(T element) {
+        assert element != null : "Elemento nulo não permitido";
         Node node = new Node(element);
         if (isEmpty()) {
             node.next = node.prev = node;
