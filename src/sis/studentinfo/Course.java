@@ -1,9 +1,12 @@
 package sis.studentinfo;
 
+import java.util.Date;
+
 public class Course implements java.io.Serializable{
     private String departament;
     private String number;
     private int numberOfCredits;
+    private Date effectiveDate;
 
     public Course(String departament, String number) {
         this.departament = departament;
@@ -36,5 +39,12 @@ public class Course implements java.io.Serializable{
         result = result * hashMultiplier + departament.hashCode();
         result = result * hashMultiplier + number.hashCode();
         return  result;
+    }
+
+    public Date getEffectiveDate() {
+        return effectiveDate;
+    }
+    public void setEffectiveDate(Date d) {
+        this.effectiveDate = d;
     }
 }

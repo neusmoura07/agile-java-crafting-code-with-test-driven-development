@@ -1,8 +1,13 @@
 package sis.UI;
 
 import javax.swing.*;
+import javax.swing.border.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import sis.studentinfo.*;
 import static java.awt.GridBagConstraints.*;
 
@@ -11,6 +16,7 @@ public class CoursesPanel extends JPanel {
     static final String COURSES_LABEL_TEXT = "Courses";
     static final String COURSES_LABEL_NAME = "coursesLabel";
     static final String COURSES_LIST_NAME = "coursesList";
+    static final String COURSES_TABLE_NAME = "coursesList";
     static final String ADD_BUTTON_TEXT = "Add";
     static final String ADD_BUTTON_NAME = "addButton";
     static final String DEPARTMENT_FIELD_NAME = "deptField";
@@ -19,8 +25,17 @@ public class CoursesPanel extends JPanel {
     static final String NUMBER_LABEL_NAME = "numberLabel";
     static final String DEPARTMENT_LABEL_TEXT = "Department";
     static final String NUMBER_LABEL_TEXT = "Number";
+    public static final String EFFECTIVE_DATE_LABEL_NAME = "effectiveDateFieldLabel";
+    public static final String EFFECTIVE_DATE_LABEL_TEXT = FieldCatalog.EFFECTIVE_DATE_LABEL_TEXT;
+    public static final String EFFECTIVE_DATE_FIELD_NAME   = FieldCatalog.EFFECTIVE_DATE_FIELD_NAME;
 
+    private Status status;
+
+    static final char ADD_BUTTON_MNEMONIC = 'A';
+    private CoursesTableModel coursesTableModel = new CoursesTableModel();
+    private JLabel coursesLabel;
     private JButton addButton;
+    private JTable coursesTable;
     private DefaultListModel coursesModel = new DefaultListModel();
 
     public static void main(String[] args) {
@@ -35,65 +50,68 @@ public class CoursesPanel extends JPanel {
         frame.setVisible(true);
     }
 
-    Course getCourse(int index) {
-        Course adapter = (CourseDisplayAdapter) coursesModel.getElementAt(index);
-        return adapter;
-    }
-
-
     public CoursesPanel() {
         setName(NAME);
+        coursesLabel = new JLabel(COURSES_LABEL_TEXT);
+        coursesLabel.setName(COURSES_LABEL_NAME);
+        coursesTable = createCoursesTable();
         createLayout();
     }
 
     private void createLayout() {
 
-        JLabel coursesLabel = createLabel(COURSES_LABEL_NAME, COURSES_LABEL_TEXT);
-
-        JList coursesList = createList(COURSES_LIST_NAME, coursesModel);
+        JTable coursesTable = createCoursesTable();
+        JScrollPane coursesScroll = new JScrollPane(coursesTable);
+        coursesScroll.setVerticalScrollBarPolicy(
+                ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         setLayout(new BorderLayout());
 
-        add(coursesLabel, BorderLayout.NORTH);
-        add(coursesList, BorderLayout.CENTER);
+        final int pad = 6;
+        Border emptyBorder =
+                BorderFactory.createEmptyBorder(pad, pad, pad, pad);
+        Border bevelBorder =
+                BorderFactory.createBevelBorder(BevelBorder.RAISED);
+        Border titledBorder =
+                BorderFactory.createTitledBorder(bevelBorder, COURSES_LABEL_TEXT);
+        setBorder(BorderFactory.createCompoundBorder(emptyBorder, titledBorder));
+
+
+        add(coursesScroll, BorderLayout.CENTER);
         add(createBottomPanel(), BorderLayout.SOUTH);
     }
 
     JPanel createBottomPanel() {
-        addButton = createButton(ADD_BUTTON_NAME, ADD_BUTTON_TEXT);
+        JLabel statusBar = new JLabel(" ");
+        statusBar.setBorder(BorderFactory.createLoweredBevelBorder());
+        status = new Status(statusBar);
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-        panel.add(Box.createRigidArea(new Dimension(0, 6)));
-        addButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.add(addButton);
-        panel.add(Box.createRigidArea(new Dimension(0, 6)));
-        panel.add(createFieldsPanel());
-        panel.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
+        panel.setLayout(new BorderLayout());
+        panel.add(statusBar, BorderLayout.SOUTH);
+        panel.add(createInputPanel(), BorderLayout.CENTER);
         return panel;
     }
-
-
 
     JPanel createFieldsPanel() {
         GridBagLayout layout = new GridBagLayout();
         JPanel panel = new JPanel(layout);
-        int columns = 20;
-        addField(panel, layout, 0,
-                DEPARTMENT_LABEL_NAME, DEPARTMENT_LABEL_TEXT,
-                DEPARTMENT_FIELD_NAME, columns);
-        addField(panel, layout, 1,
-                NUMBER_LABEL_NAME, NUMBER_LABEL_TEXT,
-                NUMBER_FIELD_NAME, columns);
+        int i = 0;
+        FieldCatalog catalog = new FieldCatalog();
+        for (String fieldName: getFieldNames()) {
+            Field fieldSpec = catalog.get(fieldName);
+            JTextField textField = TextFieldFactory.create(fieldSpec);
+            status.addText(textField, fieldSpec.getInfo());
+            addField(panel, layout, i++,
+                    createLabel(fieldSpec.getLabelName(), fieldSpec.getLabel()),
+                    textField);
+        }
         return panel;
     }
 
     private void addField(
             JPanel panel, GridBagLayout layout, int row,
-            String labelName, String labelText,
-            String fieldName, int fieldColumns) {
+            JLabel label, JTextField field) {
 
-        JLabel label = createLabel(labelName, labelText);
-        JTextField field = createField(fieldName, fieldColumns);
         Insets insets = new Insets(3, 3, 3, 3); // margens
 
         layout.setConstraints(label,
@@ -114,10 +132,6 @@ public class CoursesPanel extends JPanel {
 
     void setText(String textFieldName, String text) {
         getField(textFieldName).setText(text);
-    }
-
-    void addCourse(Course course) {
-        coursesModel.addElement(new CourseDisplayAdapter(course));
     }
 
     void addCourseAddListener(ActionListener listener) {
@@ -163,4 +177,58 @@ public class CoursesPanel extends JPanel {
     String getText(String textFieldName) {
         return getField(textFieldName).getText();
     }
+
+    void setEnabled(String name, boolean state) {
+        getButton(name).setEnabled(state);
+    }
+
+    void addFieldListener(String name, KeyListener listener) {
+        getField(name).addKeyListener(listener);
+    }
+
+    private String[] getFieldNames() {
+        return new String[]
+                { FieldCatalog.DEPARTMENT_FIELD_NAME,
+                        FieldCatalog.NUMBER_FIELD_NAME,
+                        FieldCatalog.EFFECTIVE_DATE_FIELD_NAME };
+    }
+
+    private JTable createCoursesTable() {
+        JTable table = new JTable(coursesTableModel);
+        table.setName(COURSES_TABLE_NAME);
+        table.setShowGrid(false);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        return table;
+    }
+
+    public JTable getTable(String name) {
+        if (COURSES_TABLE_NAME.equals(name)) return coursesTable;
+        return null;
+    }
+
+    void addCourse(Course course) {
+        coursesTableModel.add(course);
+    }
+    Course getCourse(int index) {
+        return coursesTableModel.get(index);
+    }
+
+    private JPanel createInputPanel() {
+        JPanel panel = new JPanel(new BorderLayout());
+        // campos em GridBag na esquerda
+        panel.add(createFieldsPanel(), BorderLayout.CENTER);
+        // botão Add abaixo ou ao lado
+        JPanel buttonPanel = new JPanel();
+        addButton = createButton(ADD_BUTTON_NAME, ADD_BUTTON_TEXT);
+        addButton.setMnemonic(ADD_BUTTON_MNEMONIC);
+        buttonPanel.add(addButton);
+        panel.add(buttonPanel, BorderLayout.SOUTH);
+        return panel;
+    }
+
+    int getCourseCount() {
+        return coursesTableModel.getRowCount();
+    }
+
+
 }
