@@ -147,7 +147,10 @@ public class Student implements Comparable<Student>, Serializable {
     }
 
     private List<String> split(String fullName) {
-        return new ArrayList<>(Arrays.asList(fullName.split(" ")));
+        List<String> results = new ArrayList<String>();
+        for (String name : fullName.split("\\s+"))
+            results.add(name);
+        return results;
     }
 
     private void log(String message) {

@@ -2,7 +2,7 @@ package sis.studentinfo;
 
 import java.util.Date;
 
-public class Course implements java.io.Serializable{
+public class Course implements java.io.Serializable, Cloneable{
     private String departament;
     private String number;
     private int numberOfCredits;
@@ -46,5 +46,17 @@ public class Course implements java.io.Serializable{
     }
     public void setEffectiveDate(Date d) {
         this.effectiveDate = d;
+    }
+
+    @Override
+    public Course clone() {
+        Course copy = null;
+        try {
+            copy = (Course) super.clone();
+        }
+        catch (CloneNotSupportedException impossible) {
+            throw new RuntimeException("unable to clone");
+        }
+        return copy;
     }
 }

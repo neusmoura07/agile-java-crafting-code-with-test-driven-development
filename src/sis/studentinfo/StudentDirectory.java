@@ -1,7 +1,8 @@
 package sis.studentinfo;
+import sis.db.DataFile;
+
 import java.io.IOException;
 import java.util.*;
-import sis.db.*;
 
 public class StudentDirectory {
     private static final String DIR_BASENAME = "studentDir";
