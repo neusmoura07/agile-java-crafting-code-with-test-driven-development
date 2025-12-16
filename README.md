@@ -1,36 +1,37 @@
-# 📖 Agile Java: Crafting Code with Test-Driven Development
+# 📖 Test-Driven Development: By Example
 
-Este repositório contém meus estudos, exercícios e anotações pessoais do livro **"Agile Java: Crafting Code with Test-Driven Development"** de Jeff Langr.
+Este repositório reúne minhas implementações práticas e estudos baseados no livro 
+**"Test-Driven Development: By Example"**, de Kent Beck.
 
-O objetivo deste repositório é aplicar e documentar meu aprendizado no desenvolvimento de software em Java seguindo uma abordagem ágil e, principalmente, orientada a testes (TDD).
-
-<br>
-
-<p align="center">
-  <img src="https://m.media-amazon.com/images/I/71dH97FwGbL._SL1500_.jpg" alt="Capa do livro Agile Java" width="200"/>
-</p>
+O foco do projeto é aplicar **TDD na prática**, utilizando o ciclo **Red > Green > Refactor**
+para evoluir código Java de forma incremental, simples e totalmente coberta por testes.
 
 ---
 
-## 🎯 Foco Principal dos Estudos
-
-O conteúdo aqui praticado é focado nos pilares centrais do livro:
-
-* **Test-Driven Development (TDD):** Prática do ciclo *Red-Green-Refactor* como principal motor para o design e implementação do código.
-* **Java (Core):** Aplicação dos conceitos de Orientação a Objetos (OO) em Java.
-* **Código Limpo (Clean Code):** Escrita de código legível, sustentável e de fácil manutenção, seguindo os princípios ensinados.
-* **Design Ágil:** Como o TDD influencia positivamente o design do software, tornando-o mais modular e flexível.
-
-## 🛠️ Tecnologias Utilizadas
-
-* **Java:** Linguagem principal para todos os exercícios.
-* **JUnit:** O framework de testes unitários utilizado para aplicar o TDD.
-* **Maven** (ou **Gradle**): Gerenciador de dependências e build do projeto.
+## 🎯 Objetivo do Projeto
+- Consolidar a prática de **Test-Driven Development**
+- Utilizar testes como guia para o design do código
+- Exercitar refatorações seguras com suporte de testes automatizados
+- Produzir código limpo, legível e evolutivo
 
 ---
 
-### 🔗 Sobre Mim
+## 🧠 Principais Conceitos Praticados
+- Ciclo clássico do TDD (Red-Green-Refactor)
+- Baby Steps (pequenas evoluções incrementais)
+- Design emergente orientado por testes
+- Refatoração contínua com segurança
+- Padrões de testes do ecossistema xUnit
 
-Este repositório é parte da minha jornada de estudos em desenvolvimento Back-end Java e Software Craftsmanship.
+---
 
-* **[Voltar para meu Perfil Principal](https://github.com/neusmoura07)**
+## 🛠 Tecnologias Utilizadas
+- Java
+- JUnit
+- Maven
+
+---
+
+## 📌 Observações
+Este projeto faz parte da minha jornada de desenvolvimento como **Backend Java Developer**, 
+com foco em qualidade de software, testes automatizados e boas práticas.
