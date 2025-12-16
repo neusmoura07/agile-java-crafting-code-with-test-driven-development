@@ -1,27 +1,27 @@
-# 📖 Test-Driven Development: By Example
+# 📖 Agile Java: Crafting Code with Test-Driven Development
 
-Este repositório reúne minhas implementações práticas e estudos baseados no livro 
-**"Test-Driven Development: By Example"**, de Kent Beck.
+Repositório com exercícios e implementações práticas baseadas no livro 
+**"Agile Java: Crafting Code with Test-Driven Development"**, de Jeff Langr.
 
-O foco do projeto é aplicar **TDD na prática**, utilizando o ciclo **Red > Green > Refactor**
-para evoluir código Java de forma incremental, simples e totalmente coberta por testes.
+O projeto tem como objetivo reforçar o uso de **TDD como prática central**
+no desenvolvimento de aplicações Java, aliando testes automatizados, design ágil
+e código limpo.
 
 ---
 
 ## 🎯 Objetivo do Projeto
-- Consolidar a prática de **Test-Driven Development**
-- Utilizar testes como guia para o design do código
-- Exercitar refatorações seguras com suporte de testes automatizados
-- Produzir código limpo, legível e evolutivo
+- Aplicar TDD como motor de desenvolvimento
+- Reforçar conceitos de Orientação a Objetos em Java
+- Desenvolver código legível, sustentável e testável
+- Praticar design ágil orientado por testes
 
 ---
 
-## 🧠 Principais Conceitos Praticados
-- Ciclo clássico do TDD (Red-Green-Refactor)
-- Baby Steps (pequenas evoluções incrementais)
-- Design emergente orientado por testes
-- Refatoração contínua com segurança
-- Padrões de testes do ecossistema xUnit
+## 🧠 Conceitos Praticados
+- Test-Driven Development (Red-Green-Refactor)
+- Clean Code
+- Design ágil
+- Testes unitários em Java
 
 ---
 
@@ -33,5 +33,4 @@ para evoluir código Java de forma incremental, simples e totalmente coberta por
 ---
 
 ## 📌 Observações
-Este projeto faz parte da minha jornada de desenvolvimento como **Backend Java Developer**, 
-com foco em qualidade de software, testes automatizados e boas práticas.
+Este projeto integra meu portfólio de estudos em **Backend Java e Software Craftsmanship**.
